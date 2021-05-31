@@ -10,6 +10,8 @@ namespace Snackis_Forum_.Models
         public int Id { get; set; }
         public string MessageTitle { get; set; }
         public string Message { get; set; }
+        public DateTime MessageSent { get; set; }
+        public bool Read { get; set; } = false;
         public string SenderId { get; set; }
         public string ReceiverId { get; set; }
     }

@@ -26,9 +26,9 @@ namespace Snackis_Forum_.Services
             return await _ctx.PrivateMessages.Where(u => u.ReceiverId == UserId).ToListAsync();
         }
 
-        public async Task<IEnumerable<PrivateMessage>> GetSinglePrivateMessage(int privateMessageId)
+        public PrivateMessage GetSinglePrivateMessage(int privateMessageId)
         {
-            return await _ctx.PrivateMessages.Where(p => p.Id == privateMessageId).ToListAsync();
+            return _ctx.PrivateMessages.Where(p => p.Id == privateMessageId).FirstOrDefault();
         }
         public async Task<IEnumerable<Subject>> GetSubjects()
         {

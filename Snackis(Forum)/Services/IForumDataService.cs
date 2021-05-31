@@ -10,7 +10,7 @@ namespace Snackis_Forum_.Services
     {
         Task<SiteTitle> GetSiteTitle();
         Task<IEnumerable<PrivateMessage>> GetPrivateMessages(string UserId);
-        Task<IEnumerable<PrivateMessage>> GetSinglePrivateMessage(int privateMessageId);
+        PrivateMessage GetSinglePrivateMessage(int privateMessageId);
         Task<IEnumerable<Subject>> GetSubjects();
         Task<IEnumerable<SubjectThread>> GetForumThreads();
         Task<IEnumerable<Post>> GetForumPosts(int threadId);

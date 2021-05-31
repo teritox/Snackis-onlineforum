@@ -1,0 +1,24 @@
+﻿@page
+@model Snackis_Forum_.Pages.NewMessageModel
+@{
+}
+
+<h1>Nytt meddlande</h1>
+
+<div>
+    <form method="post">
+
+        <label>Till</label><br />
+        <input type="text" name="Receiver"/><br />
+
+        <label>Rubrik</label><br />
+        <input type="text" name="Title" /><br />
+
+        <label>Meddelande</label><br />
+        <textarea rows="6" cols="50" name="TextMessage"></textarea><br />
+
+        <input type="submit" value="Skicka" />
+
+    </form>
+
+</div>
