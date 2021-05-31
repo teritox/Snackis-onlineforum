@@ -34,6 +34,8 @@ namespace Snackis_Forum_
                 options.Conventions.AuthorizeFolder("/SiteAdmin");
             });
 
+            services.AddControllers();
+
             services.AddDbContext<ForumContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ForumContext")));
         }
@@ -63,6 +65,7 @@ namespace Snackis_Forum_
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
