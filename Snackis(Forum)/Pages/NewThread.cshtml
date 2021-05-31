@@ -1,0 +1,22 @@
+﻿@page
+@model Snackis_Forum_.Pages.NewThreadModel
+@{
+}
+
+<div>
+
+    <form method="post">
+        <input type="text" name="Title" placeholder="Trådnamn" /><br />
+        <textarea class="resizable" name="PostText" rows="4" cols="50"></textarea>
+
+        <input type="submit" value="Posta" />
+    </form>
+
+
+    @if (Model.IsFilled == false)
+    {
+        <p class="alert-danger">Båda fälten måste fyllas i innan du kan lägga upp en ny tråd!</p>
+    }
+
+
+</div>

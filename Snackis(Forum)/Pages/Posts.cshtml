@@ -1,0 +1,68 @@
+﻿@page
+@model Snackis_Forum_.Pages.PostsModel
+@using Microsoft.AspNetCore.Identity
+@using Snackis_Forum_.Areas.Identity.Data
+
+@inject SignInManager<ForumUser> SignInManager
+@inject UserManager<ForumUser> UserManager
+@{
+}
+
+<div>
+    <div>
+        <h1 class="display-4">Tråd med posts</h1>
+
+        @if (Model.ThreadList != null)
+        {
+            <div class="text-center">
+                @foreach (var thread in Model.ThreadList.Where(t => t.Id == Model.ThreadId))
+                {
+                    <h1>@thread.TreadTitle</h1>
+                }
+            </div>
+
+            @if (Model.PostList != null)
+            {
+                @foreach (var post in Model.PostList.Where(p => p.ThreadId == Model.ThreadId).OrderBy(p => p.PostDate))
+                {
+                    <div class="text-left border border-dark" style="margin-bottom:30px; width:700px">
+                        <div style="background-color: lightgreen">
+                            Skapat av @UserManager.FindByIdAsync(post.Author).Result.NickName
+                            Postat den: @post.PostDate
+                            Svar på: @post.AnswerToId
+
+                            <form method="post" class="float-right">
+                                <input type="hidden" name="reported" value="@post.Id" />
+                                <input type="submit" class="alert-link" value="Anmäl inlägg" />
+                            </form>
+                        </div>
+                        <div class="text-center border-top">
+                            <br /> <br />
+                            <h3>@post.Text</h3>
+
+                        </div>
+                        <div>
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a class="btn btn-success" onclick="ShowForm(@post.Id)">Skapa nytt inägg</a>
+
+                                <div style="display:none" id="@post.Id">
+                                    <form method="post">
+                                        <textarea rows="4" cols="70" name="posttext"></textarea>
+                                        <input type="hidden" name="answerTo" value="@post.Id" />
+                                        <input type="submit" value="Skicka" onclick="HideForm()" />
+                                    </form>
+                                </div>
+
+                            }
+                        </div>
+
+                    </div>
+
+                }
+            }
+
+        }
+    </div>
+</div>

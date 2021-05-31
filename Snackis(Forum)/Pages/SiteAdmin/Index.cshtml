@@ -1,0 +1,70 @@
+﻿@page
+@model Snackis_Forum_.Pages.SiteAdmin.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<h2>Huvudtitle för hemsidan</h2>
+<p>
+    @if (Model.SiteTitle.Count() == 0)
+    {
+        <a asp-page="MainTitle/Create">Skapa ny</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SiteTitle[0].MainTitle)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SiteTitle)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MainTitle)
+                </td>
+                <td>
+                    <a asp-page="MainTitle/Edit" asp-route-id="@item.Id">Redigera</a> |
+                    <a asp-page="MainTitle/Details" asp-route-id="@item.Id">Detaljer</a> |
+                    <a asp-page="MainTitle/Delete" asp-route-id="@item.Id">Radera</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Kategorier</h2>
+<p>
+        <a asp-page="Subjects/Create">Skapa ny</a>   
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Subjects[0].Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Subjects)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-page="Subjects/Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="Subjects/Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="Subjects/Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

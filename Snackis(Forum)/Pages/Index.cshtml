@@ -1,0 +1,41 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <div class="text-center">
+        <h1 class="display-4 font-weight-bold font-italic" style="margin-top:50px; margin-bottom:50px">@Model.SiteTitle.MainTitle</h1>
+
+        @if (Model.SubjectList != null)
+        {
+            @foreach (var subject in Model.SubjectList)
+            {
+                <table class="table table-success">
+                    <thead>
+                        <tr class="bg-success">
+                            <th>
+                                <a class="text-dark"asp-page="/ThreadIndex" asp-route-SubjectId="@subject.Id">
+                                    @subject.Name
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    @foreach (var thread in Model.ThreadList.Where(s => s.SubjectId == subject.Id).OrderBy(s => s.LatestPost))
+                    {
+                        <tr class="table-success">
+                            <td>
+                                <a class="text-dark" asp-page="/Posts" asp-route-ThreadId="@thread.Id">
+                                    @thread.TreadTitle
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+                <br />
+            }
+        }
+    </div>
+</div>

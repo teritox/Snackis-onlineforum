@@ -1,0 +1,50 @@
+﻿@page
+@model ThreadIndexModel
+@using Microsoft.AspNetCore.Identity
+@using Snackis_Forum_.Areas.Identity.Data
+
+@inject SignInManager<ForumUser> SignInManager
+@inject UserManager<ForumUser> UserManager
+@{
+    ViewData["Title"] = "asdasd";
+}
+
+
+<div>
+    <div class="text-center">
+        <h1 class="display-4">Trådindex</h1>
+
+        @if (Model.ThreadList != null)
+        {
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @foreach (var subject in Model.SubjectList.Where(t => t.Id == Model.SubjectId))
+                            {
+                                <p class="text-dark">@subject.Name</p>
+                            }
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var thread in Model.ThreadList.Where(s => s.SubjectId == Model.SubjectId).OrderBy(s => s.LatestPost))
+                {
+                    <tr>
+                        <td>
+                            <a class="text-dark" asp-page="/Posts" asp-route-ThreadId="@thread.Id">
+                                @thread.TreadTitle
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            if (SignInManager.IsSignedIn(User))
+            {
+                <a class="btn btn-success" asp-page="NewThread" asp-route-SubjectId="@Model.SubjectId">Skapa ny tråd</a>
+            }
+        }
+
+
+    </div>
+</div>

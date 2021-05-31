@@ -1,0 +1,36 @@
+﻿@page
+@model Snackis_Forum_.Pages.SiteAdmin.ReportedPostsModel
+@using Microsoft.AspNetCore.Identity
+@using Snackis_Forum_.Areas.Identity.Data
+
+@inject SignInManager<ForumUser> SignInManager
+@inject UserManager<ForumUser> UserManager
+@{
+}
+
+
+<div>
+    <h1>Anmälda inlägg</h1><br />
+    @if (Model.PostList != null)
+    {
+        @foreach (var post in Model.PostList)
+        {
+            <div class="border border-dark text-left" style="margin-bottom:30px; width:500px">
+                Skapat av @(UserManager.FindByIdAsync(post.Author).Result.NickName)
+                Postat den: @post.PostDate
+                Svar på: @post.AnswerToId
+
+                <div class="text-center border-top">
+                    <br /> <br />
+                    <h3>@post.Text</h3>
+
+                </div>
+            </div>
+
+            <a class="btn btn-danger" href="?deletepostid=@post.Id">Radera inlägg</a>
+            <a class="btn btn-success" href="?restorepostid=@post.Id">Godkänn inlägg</a>
+        }
+    }
+</div>
+
+
