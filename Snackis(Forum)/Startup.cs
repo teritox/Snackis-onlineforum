@@ -34,6 +34,12 @@ namespace Snackis_Forum_
                 options.Conventions.AuthorizeFolder("/SiteAdmin");
             });
 
+            services.Configure<CookiePolicyOptions>(option =>
+            {
+                option.CheckConsentNeeded = conesent => true;
+                option.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
+            });
+
             services.AddControllers();
 
             services.AddDbContext<ForumContext>(options =>
@@ -61,6 +67,8 @@ namespace Snackis_Forum_
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {
