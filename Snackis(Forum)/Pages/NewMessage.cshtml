@@ -9,16 +9,34 @@
     <form method="post">
 
         <label>Till</label><br />
-        <input type="text" name="Receiver"/><br />
+        <input type="text" name="Receiver" value="@Model.Receiver" /><br />
 
         <label>Rubrik</label><br />
-        <input type="text" name="Title" /><br />
+        <input type="text" name="Title" value="@Model.Title" /><br />
 
         <label>Meddelande</label><br />
-        <textarea rows="6" cols="50" name="TextMessage"></textarea><br />
+        <textarea rows="6" cols="50" name="TextMessage">@Model.TextMessage</textarea><br />
 
         <input type="submit" value="Skicka" />
 
     </form>
+
+    <div>
+        @if (!Model.ReceiverFound)
+        {
+
+            <p class="text-danger">Ingen registrerad användare med det namnet hittades.</p>
+        }
+        else if (!Model.MessageFound)
+        {
+            <p class="text-danger">Du kan inte skicka ett tomt meddelande.</p>
+        }
+        else if (Model.MessageSent)
+        {
+            <p class="text-success">Meddelandet skickat.</p>
+        }
+    </div>
+
+    <a class="btn btn-success" asp-page="/PrivateMessages">Tillbaka</a>
 
 </div>

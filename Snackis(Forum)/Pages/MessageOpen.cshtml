@@ -21,6 +21,6 @@
         <h4>@UserManager.FindByIdAsync(Model.Message.SenderId).Result.NickName</h4><br />
         <p>@Model.Message.Message.</p><br />
     </div>
-    <a class="btn btn-success" asp-page="/NewMessage">Svara</a>
+    <a class="btn btn-success" asp-route-MessageID="@Model.MessageID" asp-page="/NewMessage">Svara</a>
     <a class="btn btn-danger" asp-page="/PrivateMessages">Tillbaka</a>
 }

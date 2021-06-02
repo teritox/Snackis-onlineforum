@@ -1,8 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Snackis_Forum_.Areas.Identity.Data
+@using System.Security.Claims;
 
 @inject SignInManager<ForumUser> SignInManager
 @inject UserManager<ForumUser> UserManager
+@inject Snackis_Forum_.Services.IForumDataService datasevice
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +35,7 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/PrivateMessages">Meddelanden</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/PrivateMessages">Meddelanden (@datasevice.GetPrivateMessages(User.FindFirstValue(ClaimTypes.NameIdentifier)).Result.Where(p => p.Read == false).Count())</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin"))
