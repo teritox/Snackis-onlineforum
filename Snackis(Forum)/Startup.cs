@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Snackis_Forum_.Data;
 using Snackis_Forum_.Services;
 using Microsoft.AspNetCore.Identity;
+using Snackis_Forum_.Gateway;
 
 namespace Snackis_Forum_
 {
@@ -27,7 +28,9 @@ namespace Snackis_Forum_
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<Gateway.FulaOrdGateway>();
             services.AddScoped<IForumDataService, ForumDataService>();
+            services.AddScoped<IFulaOrdGateway, FulaOrdGateway>();
 
             services.AddRazorPages(options =>
             {
