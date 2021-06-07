@@ -23,7 +23,7 @@ namespace Snackis_Forum_.Services
         }
         public async Task<IEnumerable<PrivateMessage>> GetPrivateMessages(string UserId)
         {
-            return await _ctx.PrivateMessages.Where(u => u.ReceiverId == UserId).ToListAsync();
+            return await _ctx.PrivateMessages.Where(u => u.ReceiverId == UserId).OrderByDescending(u => u.MessageSent).ToListAsync();
         }
 
         public PrivateMessage GetSinglePrivateMessage(int privateMessageId)
