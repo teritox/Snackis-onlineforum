@@ -11,12 +11,14 @@ using Microsoft.EntityFrameworkCore;
 using Snackis_Forum_.Areas.Identity.Data;
 using Snackis_Forum_.Data;
 using Snackis_Forum_.Models;
+using Snackis_Forum_.Services;
 
 namespace Snackis_Forum_.Pages
 {
     public class NewMessageModel : PageModel
     {
         private readonly ForumContext _ctx;
+        private readonly IFulaOrdGateway _fulaord;
 
         public UserManager<ForumUser> _userManager;
 
@@ -40,10 +42,11 @@ namespace Snackis_Forum_.Pages
         public bool MessageFound { get; set; } = true;
 
 
-        public NewMessageModel(ForumContext ctx, UserManager<ForumUser> userManager)
+        public NewMessageModel(ForumContext ctx, UserManager<ForumUser> userManager, IFulaOrdGateway fulaord)
         {
             _ctx = ctx;
             _userManager = userManager;
+            _fulaord = fulaord;
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -76,8 +79,8 @@ namespace Snackis_Forum_.Pages
 
                     PrivateMessage message = new PrivateMessage
                     {
-                        MessageTitle = Title,
-                        Message = TextMessage,
+                        MessageTitle = await _fulaord.GetFilteredItem(Title),
+                        Message = await _fulaord.GetFilteredItem(TextMessage),
                         MessageSent = DateTime.Now,
                         SenderId = userId,
                         ReceiverId = receiver.Id

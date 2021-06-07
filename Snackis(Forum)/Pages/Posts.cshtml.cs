@@ -15,11 +15,13 @@ namespace Snackis_Forum_.Pages
     {
         private readonly IForumDataService _ds;
         private readonly ForumContext _ctx;
+        private readonly IFulaOrdGateway _fulaord;
 
-        public PostsModel(IForumDataService ds, ForumContext ctx)
+        public PostsModel(IForumDataService ds, ForumContext ctx, IFulaOrdGateway fulaord)
         {
             _ds = ds;
             _ctx = ctx;
+            _fulaord = fulaord;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -56,6 +58,8 @@ namespace Snackis_Forum_.Pages
             if (PostText != "" && PostText != null)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                PostText = await _fulaord.GetFilteredItem(PostText);
 
                 Post post = new Post
                 {

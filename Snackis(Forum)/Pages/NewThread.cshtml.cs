@@ -9,16 +9,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Snackis_Forum_.Data;
 using Snackis_Forum_.Models;
+using Snackis_Forum_.Services;
 
 namespace Snackis_Forum_.Pages
 {
     public class NewThreadModel : PageModel
     {
         private readonly ForumContext _ctx;
+        private readonly IFulaOrdGateway _fulaord;
 
-        public NewThreadModel(ForumContext ctx)
+        public NewThreadModel(ForumContext ctx, IFulaOrdGateway fulaord)
         {
             _ctx = ctx;
+            _fulaord = fulaord;
         }
 
         [BindProperty]
@@ -45,7 +48,7 @@ namespace Snackis_Forum_.Pages
 
                 SubjectThread thread = new SubjectThread
                 {
-                    TreadTitle = Title,
+                    TreadTitle = await _fulaord.GetFilteredItem(Title),
                     CreationDate = DateTime.Now,
                     LatestPost = DateTime.Now,
                     AuthorId = userId,
@@ -60,7 +63,7 @@ namespace Snackis_Forum_.Pages
 
                 Post post = new Post
                 {
-                    Text = PostText,
+                    Text = await _fulaord.GetFilteredItem(PostText),
                     Author = userId,
                     PostDate = DateTime.Now,
                     Reported = false,
