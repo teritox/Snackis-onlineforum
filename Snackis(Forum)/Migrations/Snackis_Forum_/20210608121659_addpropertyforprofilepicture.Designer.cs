@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Snackis_Forum_.Data;
 
 namespace Snackis_Forum_.Migrations.Snackis_Forum_
 {
     [DbContext(typeof(Snackis_Forum_Context))]
-    partial class Snackis_Forum_ContextModelSnapshot : ModelSnapshot
+    [Migration("20210608121659_addpropertyforprofilepicture")]
+    partial class addpropertyforprofilepicture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

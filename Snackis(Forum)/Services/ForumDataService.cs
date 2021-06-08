@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Snackis_Forum_.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Snackis_Forum_.Services
 {
@@ -49,6 +50,7 @@ namespace Snackis_Forum_.Services
         {
             return await _ctx.Posts.Where(p => p.Reported == true).ToListAsync();
         }
+
 
     }
 }

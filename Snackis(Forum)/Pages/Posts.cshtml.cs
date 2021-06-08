@@ -28,7 +28,6 @@ namespace Snackis_Forum_.Pages
         public int? ThreadId { get; set; }
 
         public IEnumerable<SubjectThread> ThreadList { get; set; }
-
         public IEnumerable<Post> PostList { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -47,6 +46,7 @@ namespace Snackis_Forum_.Pages
                 ThreadList = await _ds.GetForumThreads();
 
                 PostList = await _ds.GetForumPosts((int)ThreadId);
+
             }
 
 
@@ -57,7 +57,13 @@ namespace Snackis_Forum_.Pages
         {
             if (PostText != "" && PostText != null)
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var userId = "";
+
+                if(User.FindFirstValue(ClaimTypes.NameIdentifier) != null)
+                {
+                    userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                }
 
                 PostText = await _fulaord.GetFilteredItem(PostText);
 

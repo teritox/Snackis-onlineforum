@@ -25,37 +25,57 @@
             {
                 @foreach (var post in Model.PostList.Where(p => p.ThreadId == Model.ThreadId).OrderBy(p => p.PostDate))
                 {
-                    <div class="text-left border border-dark" style="margin-bottom:30px; width:700px">
-                        <div style="background-color: lightgreen">
-                            Skapat av @UserManager.FindByIdAsync(post.Author).Result.NickName
-                            Postat den: @post.PostDate
-                            Svar på: @post.AnswerToId
+                    <div class="text-left border border-dark" style="margin-bottom:30px; width:700px;">
+                        <div style="background-color: lightgreen; height:30px">
 
-                            <form method="post" class="float-right">
-                                <input type="hidden" name="reported" value="@post.Id" />
-                                <input type="submit" class="alert-link" value="Anmäl inlägg" />
-                            </form>
+                            <p>
+                                &ensp;Skapad av
+                                @if (post.Author == "")
+                                {
+                                    <span>Gäst</span>
+                                }
+                                else
+                                {
+                                    <span>@UserManager.FindByIdAsync(post.Author).Result.NickName</span>
+                                }
+                                Postat den: @post.PostDate
+                                Svar på: @post.AnswerToId
+
+                            </p>
                         </div>
-                        <div class="text-center border-top">
-                            <br /> <br />
-                            <h3>@post.Text</h3>
+                        <div class="text-center row" style="margin-left:10px; margin-top:10px; margin-bottom:10px;">
+                            <div class="border" style="margin-right:10px">
+                                @if (post.Author == "")
+                                {
+                                    <img src="~/img/user_profile_picture.png">
+                                }
+                                else if (@UserManager.FindByIdAsync(post.Author).Result.ProfilePicture != null)
+                                {
+                                    <img src="~/img/@UserManager.FindByIdAsync(post.Author).Result.ProfilePicture" />
+                                }
+                                else
+                                {
+                                    <img src="~/img/user_profile_picture.png">
+                                }
+                            </div>
+                            <p style="margin-top:30px">@post.Text</p>
 
                         </div>
                         <div>
+                            <a class="btn btn-success btn-sm" onclick="ShowForm(@post.Id)">Skapa nytt inägg</a>
 
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                                <a class="btn btn-success" onclick="ShowForm(@post.Id)">Skapa nytt inägg</a>
+                            <form method="post" style="float:right">
+                                <input type="hidden" name="reported" value="@post.Id" />
+                                <input type="submit" class="btn btn-danger btn-sm" value="Anmäl inlägg" style="font-weight:normal" />
+                            </form>
 
-                                <div style="display:none" id="@post.Id">
-                                    <form method="post">
-                                        <textarea rows="4" cols="70" name="posttext"></textarea>
-                                        <input type="hidden" name="answerTo" value="@post.Id" />
-                                        <input type="submit" value="Skicka" onclick="HideForm()" />
-                                    </form>
-                                </div>
-
-                            }
+                            <div style="display:none" id="@post.Id">
+                                <form method="post">
+                                    <textarea rows="4" cols="70" name="posttext"></textarea>
+                                    <input type="hidden" name="answerTo" value="@post.Id" />
+                                    <input type="submit" value="Skicka" onclick="HideForm()" />
+                                </form>
+                            </div>
                         </div>
 
                     </div>

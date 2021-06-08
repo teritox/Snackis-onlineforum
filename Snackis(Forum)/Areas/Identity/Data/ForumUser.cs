@@ -11,5 +11,8 @@ namespace Snackis_Forum_.Areas.Identity.Data
     {
         [PersonalData]
         public string NickName { get; set; }
+
+        [PersonalData]
+        public string ProfilePicture { get; set; }
     }
 }

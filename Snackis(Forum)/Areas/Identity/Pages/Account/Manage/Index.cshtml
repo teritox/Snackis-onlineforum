@@ -9,17 +9,25 @@
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
     <div class="col-md-6">
-        <form id="profile-form" method="post">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Username"></label>
-                <input asp-for="Username" class="form-control" disabled />
-            </div>
             <div class="form-group">
                 <label asp-for="Input.PhoneNumber"></label>
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
+            @if (Model.CurrentPicture != null)
+            {
+                <img src="~/img/@Model.CurrentPicture" />
+            }
+            else
+            {
+                <img src="~/img/user_profile_picture.png" height="180" width="180"/>
+            }
+        <div class="form-group">
+            <label>Bildfil</label>
+            <input type="file" name="UploadedFile" />
+        </div>
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
