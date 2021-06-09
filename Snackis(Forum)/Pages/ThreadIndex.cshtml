@@ -11,40 +11,83 @@
 
 
 <div>
-    <div class="text-center">
-        <h1 class="display-4">Trådindex</h1>
+    <div>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a class="btn btn-success float-right mb-2" asp-page="NewThread" asp-route-SubjectId="@Model.SubjectId">Skapa ny tråd</a>
+            }
+            
 
         @if (Model.ThreadList != null)
         {
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
+            
+            <table class="table table-success m-0 text-center">
+                <thead>
+                    <tr class="bg-success text-center ">
                         <th>
                             @foreach (var subject in Model.SubjectList.Where(t => t.Id == Model.SubjectId))
                             {
-                                <p class="text-dark">@subject.Name</p>
+                                <h1 class="text-dark">@subject.Name</h1>
                             }
                         </th>
                     </tr>
                 </thead>
-                @foreach (var thread in Model.ThreadList.Where(s => s.SubjectId == Model.SubjectId).OrderBy(s => s.LatestPost))
-                {
-                    <tr>
-                        <td>
-                            <a class="text-dark" asp-page="/Posts" asp-route-ThreadId="@thread.Id">
-                                @thread.TreadTitle
-                            </a>
-                        </td>
-                    </tr>
-                }
             </table>
 
-            if (SignInManager.IsSignedIn(User))
-            {
-                <a class="btn btn-success" asp-page="NewThread" asp-route-SubjectId="@Model.SubjectId">Skapa ny tråd</a>
-            }
+
+    <table class="table table-success">
+        <thead>
+            <tr class="table-success">
+                <td class="font-weight-bold">
+                    Rubrik
+                </td>
+                <td class="font-weight-bold">
+                    Startad av
+                </td>
+                <td class="font-weight-bold">
+                    Skapad
+                </td>
+                <td class="font-weight-bold">
+                    Senaste inlägg
+                </td>
+            </tr>
+        </thead>
+        @foreach (var thread in Model.ThreadList.Where(s => s.SubjectId == Model.SubjectId).OrderByDescending(s => s.LatestPost))
+        {
+            <tr class="table-success p-2">
+                <td>
+                    <a class="text-dark" asp-page="/Posts" asp-route-ThreadId="@thread.Id">
+                        @thread.TreadTitle
+                    </a>
+                </td>
+                <td>
+                    @if (@thread.AuthorId == "")
+                    {
+                        <p>Gäst</p>
+                    }
+                    else
+                    {
+                        if ((UserManager.FindByIdAsync(@thread.AuthorId).Result) == null)
+                        {
+                            <p>Borttagen</p>
+                        }
+                        else
+                        {
+                            @UserManager.FindByIdAsync(@thread.AuthorId).Result.NickName
+                        }
+                    }
+                </td>
+                <td>
+                    @thread.CreationDate.ToShortDateString() @thread.CreationDate.ToShortTimeString()
+                </td>
+                <td>
+                    @thread.LatestPost.ToShortDateString() @thread.LatestPost.ToShortTimeString()
+                </td>
+            </tr>
         }
-
-
+    </table>
+            <br />
+            <br />
+        }
     </div>
 </div>
