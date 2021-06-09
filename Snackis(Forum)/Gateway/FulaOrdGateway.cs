@@ -22,17 +22,18 @@ namespace Snackis_Forum_.Gateway
             _httpClient = httpClient;
         }
 
-        public async Task<List<FulaOrd>> GetBannedWords()
+        public async Task<List<FulaOrd>> GetBadWords()
         {
             var response = await _httpClient.GetAsync(_config["ConnectionStrings:FulaOrdAPI"]);
             string apiResponse = await response.Content.ReadAsStringAsync();
+
             return JsonSerializer.Deserialize<List<Models.FulaOrd>>(apiResponse);
         }
 
-        public async Task<Models.FulaOrd> PostBannedWord(FulaOrd fultOrd)
+        public async Task<Models.FulaOrd> PostBadWord(FulaOrd fultOrd)
         {
             var response = await _httpClient.PostAsJsonAsync(_config["ConnectionStrings:FulaOrdAPI"], fultOrd);
-            Models.FulaOrd returnValue = await response.Content.ReadFromJsonAsync<Models.FulaOrd>();
+            FulaOrd returnValue = await response.Content.ReadFromJsonAsync<FulaOrd>();
 
             return returnValue;
         }
@@ -40,10 +41,17 @@ namespace Snackis_Forum_.Gateway
         public async Task<string> GetFilteredItem(string message)
         {
             var response = await _httpClient.GetStringAsync(_config["ConnectionStrings:FulaOrdAPI"] + "/" + message);
-            //string apiResponse = await response.Content.ReadAsStringAsync();
 
             return response;
 
+        }
+
+        public async Task<FulaOrd> DeleteBadWord(int deleteId)
+        {
+            var response = await _httpClient.DeleteAsync(_config["ConnectionStrings:FulaOrdAPI"] + "/" + deleteId);
+            FulaOrd returnValue = await response.Content.ReadFromJsonAsync<FulaOrd>();
+
+            return returnValue;
         }
 
     }

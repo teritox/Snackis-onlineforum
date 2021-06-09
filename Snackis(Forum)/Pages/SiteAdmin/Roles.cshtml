@@ -13,10 +13,13 @@
 
 </h1>
 <p>Klicka här för att ändra sidans namn och kategorier</p>
-<a class="btn btn-success" asp-page="/SiteAdmin/Index">Ändra innehåll</a>
+<a class="btn btn-success" asp-page="/SiteAdmin/Index">Ändra innehåll</a><br />
 
 <p>Klicka här för att hantera anmälda inlägg</p>
-<a class="btn btn-danger" asp-page="/SiteAdmin/ReportedPosts">Anmälda inlägg</a>
+<a class="btn btn-danger" asp-page="/SiteAdmin/ReportedPosts">Anmälda inlägg</a><br />
+
+<p>Klicka här för att se och lägga till fula ord</p>
+<a class="btn btn-warning" asp-page="/SiteAdmin/BadWords">Fula ord</a><br />
 
 @if (Model.isAdmin)
 {

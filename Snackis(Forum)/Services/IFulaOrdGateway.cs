@@ -8,10 +8,10 @@ namespace Snackis_Forum_.Services
 {
     public interface IFulaOrdGateway
     {
-        Task<List<FulaOrd>> GetBannedWords();
-
-        Task<Models.FulaOrd> PostBannedWord(FulaOrd fultOrd);
-
+        Task<List<FulaOrd>> GetBadWords();
+        Task<FulaOrd> PostBadWord(FulaOrd fultOrd);
         Task<string> GetFilteredItem(string message);
+        Task<FulaOrd> DeleteBadWord(int deleteId);
+
     }
 }

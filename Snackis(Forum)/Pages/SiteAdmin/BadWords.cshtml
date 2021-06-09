@@ -1,0 +1,29 @@
+﻿@page
+@model Snackis_Forum_.Pages.SiteAdmin.BadWordsModel
+@{
+}
+
+    <h1>Fula ord</h1>
+<div>
+    <p>För att lägga till nytt fult ord som kommer censurera i forumet med "*" skriv in ordet nedan och tryck på spara.</p>
+
+
+    <form method="post">
+        <input type="text" name="badWord"/>
+        <input type="submit" value="Spara"/>
+    </form>
+
+
+</div>
+
+<div>
+    <p>Här visas alla ord som finns i fula ord listan</p>
+    <p>Tryck på det röda krysset till vänster om order för att ta bort det.</p>
+
+    @foreach (var item in Model.FulaOrdList)
+    {
+        <p><a href="?deleteid=@item.Id" style="color: red">X</a> @item.Word</p>
+    }
+
+
+</div>

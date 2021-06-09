@@ -11,7 +11,7 @@ namespace Snackis_Forum_.Models
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("name")]
+        [JsonPropertyName("word")]
         public string Word { get; set; }
     }
 }
