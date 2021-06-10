@@ -38,15 +38,15 @@
                                 <div class="col-2 mt-2 ml-2">
                                     @if (post.Author == "")
                                     {
-                                        <img src="~/img/user_profile_picture.png" class="img-thumbnail img-fluid">
+                                        <img src="~/img/user_profile_picture.png" class="img-thumbnail img-fluid" alt="Profilbild">
                                     }
                                     else if (@UserManager.FindByIdAsync(post.Author).Result.ProfilePicture != null)
                                     {
-                                        <img src="~/img/@UserManager.FindByIdAsync(post.Author).Result.ProfilePicture" class="img-thumbnail img-fluid" />
+                                        <img src="~/img/@UserManager.FindByIdAsync(post.Author).Result.ProfilePicture" class="img-thumbnail img-fluid" alt="Profilbild"/>
                                     }
                                     else
                                     {
-                                        <img src="~/img/user_profile_picture.png" class="img-thumbnail img-fluid">
+                                        <img src="~/img/user_profile_picture.png" class="img-thumbnail img-fluid" alt="Profilbild">
                                     }
                                     <p class="text-center">
                                         @if (post.Author == "")
