@@ -15,7 +15,7 @@
     {
         @foreach (var post in Model.PostList)
         {
-            <div class="border border-dark text-left" style="margin-bottom:30px; width:500px">
+            <div class="border border-dark text-left mb-3" style="width:50%">
                 Skapat av @(UserManager.FindByIdAsync(post.Author).Result.NickName)
                 Postat den: @post.PostDate
                 Svar på: @post.AnswerToId

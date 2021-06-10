@@ -13,7 +13,7 @@
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logga ut</button>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark font-weight-bold">Logga ut</button>
             </form>
         </li>
     }
@@ -23,7 +23,7 @@
             <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Registrera</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Logga in</a>
+            <a class="nav-link text-dark font-weight-bold" id="login" asp-area="Identity" asp-page="/Account/Login">Logga in</a>
         </li>
     }
 </ul>
