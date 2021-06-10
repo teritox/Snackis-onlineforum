@@ -8,6 +8,6 @@ function ShowForm(form) {
     document.getElementById(form).style.display = "block";
 }
 
-function HideFormform(form) {
+function HideForm(form) {
     document.getElementById(form).style.display = "none";
 }
