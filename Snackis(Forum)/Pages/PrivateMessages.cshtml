@@ -15,7 +15,7 @@
 <a class="btn btn-success" asp-page="/NewMessage">Nytt meddlande</a>
 
 <div>
-    <table class="table">
+    <table class="table table-sm">
         <thead>
             <tr class="bg-success">
                 <th scope="col">Rubrik</th>
@@ -28,7 +28,7 @@
         {
             @foreach (var message in Model.MessageList)
             {
-                <tr class="table-success">
+                <tr class="table-success table-sm">
                     <td>
                         @if (message.Read == false)
                         {
