@@ -46,7 +46,7 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "Ny email")]
             public string NewEmail { get; set; }
         }
 
@@ -105,11 +105,11 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
                     "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = "Bekräftelse email skickat, var god kolla in inbox";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = "Din email kunde inte ändras.";
             return RedirectToPage();
         }
 
@@ -141,7 +141,7 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "Bekräftelse email skickat. Var god kolla din email.";
             return RedirectToPage();
         }
     }

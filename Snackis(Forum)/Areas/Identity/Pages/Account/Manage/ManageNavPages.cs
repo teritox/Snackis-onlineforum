@@ -12,15 +12,15 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
 
         public static string Email => "Email";
 
-        public static string ChangePassword => "ChangePassword";
+        public static string ChangePassword => "Ändra lösenord";
 
-        public static string DownloadPersonalData => "DownloadPersonalData";
+        public static string DownloadPersonalData => "Ladda ner personlig data";
 
-        public static string DeletePersonalData => "DeletePersonalData";
+        public static string DeletePersonalData => "Ta bort personlig data";
 
         public static string ExternalLogins => "ExternalLogins";
 
-        public static string PersonalData => "PersonalData";
+        public static string PersonalData => "Personlig data";
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 

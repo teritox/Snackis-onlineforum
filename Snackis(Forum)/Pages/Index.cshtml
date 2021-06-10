@@ -6,18 +6,21 @@
 @inject SignInManager<ForumUser> SignInManager
 @inject UserManager<ForumUser> UserManager
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Hem";
 }
 
 <div>
     <div>
-        <h1 class="display-4 font-weight-bold font-italic" style="margin-top:50px; margin-bottom:50px">@Model.SiteTitle.MainTitle</h1>
-
+        <div class="text-center mb-5">
+            <h1 class="display-4 font-weight-bold font-italic" style="margin-top:50px; margin-bottom:50px">@Model.SiteTitle.MainTitle</h1>
+            <p>Välkommen till vårt forum <br />
+            Hoppa rakt in i en diskussion som gäst eller skapa ett konto så att våra användare känner igen dig</p>
+        </div>
         @if (Model.SubjectList != null)
         {
             @foreach (var subject in Model.SubjectList)
             {
-                <table class="table table-success m-0">
+                <table class="table table-sm table-success m-0 ml-auto mr-auto" style="width:80%;">
                     <thead>
                         <tr class="bg-success text-center ">
                             <th>
@@ -27,7 +30,7 @@
                             </th>
                     </thead>
                 </table>
-                <table class="table table-success">
+                <table class="table table-sm table-success ml-auto mr-auto" style="width:80%;">
                     <thead>
                         <tr class="table-success">
                             <td class="font-weight-bold">

@@ -124,7 +124,7 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
 
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Din profil har uppdaterats.";
             return RedirectToPage();
         }
     }
