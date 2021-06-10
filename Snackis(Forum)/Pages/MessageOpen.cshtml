@@ -10,18 +10,17 @@
 }
 
 
-<h1>Meddlande</h1>
-
-
 @if (Model.Message != null)
 {
-
-    <div class="text-center">
-
-        <h2>@Model.Message.MessageTitle</h2><br />
-        <h4>@UserManager.FindByIdAsync(Model.Message.SenderId).Result.NickName</h4><br />
+    <div class="mt-3">
+        <div>
+            <h2>@Model.Message.MessageTitle</h2><br />
+            <h4>Från @UserManager.FindByIdAsync(Model.Message.SenderId).Result.NickName</h4><br />
+        </div>
         <p>@Model.Message.Message.</p><br />
     </div>
-    <a class="btn btn-success" asp-route-MessageID="@Model.MessageID" asp-page="/NewMessage">Svara</a>
-    <a class="btn btn-danger" asp-page="/PrivateMessages">Tillbaka</a>
+    <div class="row m-auto">
+        <a class="btn btn-sm btn-success mr-2" asp-route-MessageID="@Model.MessageID" asp-page="/NewMessage">Svara</a> 
+        <a class="btn btn-sm btn-dark" asp-page="/PrivateMessages">Tillbaka</a>
+    </div>
 }

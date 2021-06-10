@@ -60,7 +60,7 @@
                                     </p>
                                 </div>
                                 <div class="col-9">
-                                    <p class="mt-2" style="overflow-wrap: break-word;">@post.Text</p>
+                                    <p class="mt-2" style="overflow-wrap:break-word;">@post.Text</p>
                                 </div>
                             </div>
                             <div class="ml-1 mb-1 mr-1">
@@ -76,7 +76,7 @@
                                         <textarea rows="4" cols="75" name="posttext"></textarea>
                                         <input type="hidden" name="answerTo" value="@post.Id" />
                                         <input type="submit" class="btn btn-sm btn-success" value="Skicka" onclick="HideForm(@post.Id)" />
-                                        <button class="btn btn-sm btn-danger float-right" onclick="HideForm(@post.Id)">Stäng</button>
+                                        <button class="btn btn-sm btn-dark ml-2" onclick="HideForm(@post.Id)">Stäng</button>
                                     </form>
                                 </div>
                             </div>

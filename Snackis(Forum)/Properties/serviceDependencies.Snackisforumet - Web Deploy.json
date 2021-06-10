@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/snackisserver/databases/SnackisForumDB",
+      "type": "mssql.azure",
+      "connectionId": "ForumContext",
+      "secretStore": "AzureAppSettings"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/snackisserver/databases/SnackisUserDB",
+      "type": "mssql.azure",
+      "connectionId": "Snackis_Forum_ContextConnection",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}

@@ -34,32 +34,32 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
-        //[BindProperty]
-        //public InputModel Input { get; set; }
+        [BindProperty]
+        public InputModel Input { get; set; }
 
         [BindProperty]
         public IFormFile UploadedFile { get; set; }
 
         public string CurrentPicture { get; set; }
 
-        //public class InputModel
-        //{
-        //    [Phone]
-        //    [Display(Name = "Phone number")]
-        //    public string PhoneNumber { get; set; }
-        //}
+        public class InputModel
+        {
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+        }
 
         private async Task LoadAsync(ForumUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            //var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
             Username = userName;
 
-            //Input = new InputModel
-            //{
-            //    PhoneNumber = phoneNumber
-            //};
+            Input = new InputModel
+            {
+                PhoneNumber = phoneNumber
+            };
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -92,11 +92,11 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
 
             if (UploadedFile != null)
             {
-                if (!System.IO.Directory.Exists("./wwwroot/img")) Directory.CreateDirectory("./wwwroot/img");
+                if (!Directory.Exists("./wwwroot/img")) Directory.CreateDirectory("./wwwroot/img");
 
                 var getUser = await _userManager.FindByIdAsync(user.Id);
                 var userPicture = getUser.ProfilePicture;
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img\\", userPicture);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "./wwwroot/img/" + userPicture);
 
                 if (System.IO.File.Exists(path))
                 {
@@ -104,7 +104,7 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
                 }
 
                 using var image = Image.Load(UploadedFile.OpenReadStream());
-                image.Mutate(x => x.Resize(180, 180));
+                image.Mutate(x => x.Resize(180, 0));
                 image.Save("./wwwroot/img/" + UploadedFile.FileName);
 
                 getUser.ProfilePicture = UploadedFile.FileName;

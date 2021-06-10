@@ -21,13 +21,15 @@
         }
 
     </div>
-<div>
+<br />
+<div class="mt-4 mb-4">
     Befintliga användare: <br />
 
-    <table>
+    <table class="table table-sm">
 
         <tr>
             <th>Användarnamn</th>
+            <th>Email</th>
             @foreach (var role in Model.Roles)
             {
                 <th>@role.Name</th>
@@ -37,23 +39,24 @@
 
         @foreach (var user in Model.Users)
         {
-            <tr>
-                <td>@user.UserName</td>
+    <tr>
+        <td>@user.NickName</td>
+        <td>@user.UserName</td>
 
-                @foreach (var role in Model.Roles)
-                {
-                    if (await Model._userManager.IsInRoleAsync(user, role.Name))
-                    {
-                        <td><a href="?RemoveUserId=@user.Id&Role=@role.Name" class="bg-success text-white">@role.Name</a></td>
+        @foreach (var role in Model.Roles)
+        {
+            if (await Model._userManager.IsInRoleAsync(user, role.Name))
+            {
+                <td><a href="?RemoveUserId=@user.Id&Role=@role.Name" class="bg-success text-white">@role.Name</a></td>
 
-                    }
-                    else
-                    {
-                        <td><a href="?AddUserId=@user.Id&Role=@role.Name" class="bg-danger text-white">@role.Name</a></td>
-                    }
-                }
+            }
+            else
+            {
+                <td><a href="?AddUserId=@user.Id&Role=@role.Name" class="bg-danger text-white">@role.Name</a></td>
+            }
+        }
 
-            </tr>
+    </tr>
         }
     </table>
 

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Snackis_Forum_</RootNamespace>
+    <UserSecretsId>a782555f-acbc-4c48-857c-9364b2d852d3</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
