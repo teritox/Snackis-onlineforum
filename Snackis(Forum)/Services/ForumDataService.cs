@@ -18,9 +18,9 @@ namespace Snackis_Forum_.Services
             _ctx = ctx;
         }
 
-        public async Task<SiteTitle> GetSiteTitle()
+        public async Task<IEnumerable<SiteTitle>> GetSiteTitle()
         {
-            return await _ctx.SiteTitle.FirstOrDefaultAsync();
+            return await _ctx.SiteTitle.ToListAsync();
         }
         public async Task<IEnumerable<PrivateMessage>> GetPrivateMessages(string UserId)
         {

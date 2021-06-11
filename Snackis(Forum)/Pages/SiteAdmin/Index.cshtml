@@ -5,12 +5,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Huvudtitel för hemsidan</h2>
+<h2>Huvudtitel för forumen</h2>
 <p>
-    @if (Model.SiteTitle.Count() == 0)
-    {
-        <a asp-page="MainTitle/Create">Skapa ny</a>
-    }
+    <a asp-page="MainTitle/Create">Skapa ny</a>
 </p>
 <table class="table">
     <thead>
@@ -38,32 +35,36 @@
     </tbody>
 </table>
 
-<h2>Kategorier</h2>
-<p>
-        <a asp-page="Subjects/Create">Skapa ny</a>   
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Subjects[0].Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Subjects)
-        {
+@foreach (var title in Model.SiteTitle)
+{
+    <h2>Kategorier för @title.MainTitle</h2>
+    <p>
+        <a asp-page="Subjects/Create" asp-route-TitleId="@title.Id">Skapa ny</a>
+    </p>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    <a asp-page="Subjects/Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="Subjects/Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="Subjects/Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subjects[0].Name)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var subject in Model.Subjects.Where(s => s.SitetitleId == title.Id))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => subject.Name)
+                    </td>
+                    <td>
+                        <a asp-page="Subjects/Edit" asp-route-id="@subject.Id">Edit</a> |
+                        <a asp-page="Subjects/Details" asp-route-id="@subject.Id">Details</a> |
+                        <a asp-page="Subjects/Delete" asp-route-id="@subject.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

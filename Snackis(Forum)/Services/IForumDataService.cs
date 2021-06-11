@@ -8,7 +8,7 @@ namespace Snackis_Forum_.Services
 {
     public interface IForumDataService
     {
-        Task<SiteTitle> GetSiteTitle();
+        Task <IEnumerable<SiteTitle>> GetSiteTitle();
         Task<IEnumerable<PrivateMessage>> GetPrivateMessages(string UserId);
         PrivateMessage GetSinglePrivateMessage(int privateMessageId);
         Task<IEnumerable<Subject>> GetSubjects();

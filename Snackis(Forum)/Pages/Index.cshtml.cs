@@ -14,7 +14,7 @@ namespace Snackis_Forum_.Pages
     {
         private readonly IForumDataService _ds;
 
-        public SiteTitle SiteTitle { get; set; }
+        public IEnumerable<SiteTitle> SiteTitle { get; set; }
         public IEnumerable<Subject> SubjectList { get; set; }
         public IEnumerable<SubjectThread> ThreadList { get; set; }
         public IEnumerable<Post> PostsList { get; set; }

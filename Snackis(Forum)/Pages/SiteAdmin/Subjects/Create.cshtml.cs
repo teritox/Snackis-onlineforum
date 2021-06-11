@@ -27,16 +27,25 @@ namespace Snackis_Forum_.Pages.SiteAdmin
         [BindProperty]
         public Subject Subject { get; set; }
 
+
+        [BindProperty(SupportsGet = true)]
+        public int TitleId { get; set; }
+
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            if (TitleId != 0)
             {
-                return Page();
-            }
+                if (!ModelState.IsValid)
+                {
+                    return Page();
+                }
 
-            _context.Subjects.Add(Subject);
-            await _context.SaveChangesAsync();
+                Subject.SitetitleId = TitleId;
+
+                _context.Subjects.Add(Subject);
+                await _context.SaveChangesAsync();
+            }
 
             return RedirectToPage("../Index");
         }

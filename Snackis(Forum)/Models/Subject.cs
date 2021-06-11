@@ -8,6 +8,8 @@ namespace Snackis_Forum_.Models
     public class Subject
     {
         public int Id { get; set; }
+
+        public int SitetitleId { get; set; }
         public string Name { get; set; }
     }
 }
