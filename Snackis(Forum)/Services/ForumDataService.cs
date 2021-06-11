@@ -51,6 +51,33 @@ namespace Snackis_Forum_.Services
             return await _ctx.Posts.Where(p => p.Reported == true).ToListAsync();
         }
 
+        public async Task<IEnumerable<Post>> GetAllPosts()
+        {
+            return await _ctx.Posts.ToListAsync();
+        }
 
+        public async Task<int> GetPostsCountInSubject(int subjectId)
+        {
+            var ThreadList = await GetForumThreads();
+            var PostsList = await GetAllPosts();
+
+            var count = 0;
+
+            foreach (var thread in ThreadList.Where(t => t.SubjectId == subjectId))
+            {
+                count += PostsList.Where(p => p.ThreadId == thread.Id).Count();
+            }
+
+            return count;
+        }
+
+        public async Task<SubjectThread> GetLastestThreadInSubject(int subjectId)
+        {
+            var ThreadList = await GetForumThreads();
+
+            var thread = ThreadList.Where(t => t.SubjectId == subjectId).OrderByDescending(t => t.CreationDate).FirstOrDefault();
+
+            return thread;
+        }
     }
 }

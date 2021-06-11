@@ -5,6 +5,7 @@
 
 @inject SignInManager<ForumUser> SignInManager
 @inject UserManager<ForumUser> UserManager
+@inject Snackis_Forum_.Services.IForumDataService _ds
 @{
     ViewData["Title"] = "Hem";
 }
@@ -13,81 +14,97 @@
     <div>
         @if (Model.SiteTitle != null)
         {
-        <div class="text-center mb-5">
-            <h1 class="display-4 font-weight-bold" style="margin-top:50px; margin-bottom:50px">@Model.SiteTitle.MainTitle</h1>
-            <p>Välkommen till vårt forum <br />
-            Hoppa rakt in i en diskussion som gäst eller skapa ett konto så att våra användare känner igen dig</p>
-        </div>
+            <div class="text-center mb-5">
+                <h1 class="display-1" style="margin-top:50px; margin-bottom:50px; font-family:fantasy;">Snackis</h1>
+                <p>
+                    Välkommen till vårt forum <br />
+                    Hoppa rakt in i en diskussion som gäst eller skapa ett konto så att våra användare känner igen dig
+                </p>
+            </div>
+
+            <table class="table table-primary m-0 ml-auto mr-auto borderless text-dark" style="width:80%;">
+                <thead>
+                    <tr>
+                        <th>
+                            @Model.SiteTitle.MainTitle
+                        </th>
+                    </tr>
+                </thead>
+            </table>
         }
 
         @if (Model.SubjectList != null)
         {
-            @foreach (var subject in Model.SubjectList)
-            {
-                <table class="table table-sm table-success m-0 ml-auto mr-auto" style="width:80%;">
-                    <thead>
-                        <tr class="bg-success text-center ">
-                            <th>
-                                <a class="text-dark" asp-page="/ThreadIndex" asp-route-SubjectId="@subject.Id">
-                                    @subject.Name
-                                </a><span class="font-italic float-right font-weight-normal">(Visar senaste 5 skapade trådar)</span>
-                            </th>
-                    </thead>
-                </table>
-                <table class="table table-sm table-success ml-auto mr-auto" style="width:80%;">
-                    <thead>
-                        <tr class="table-success">
-                            <td class="font-weight-bold">
-                                Rubrik
-                            </td>
-                            <td class="font-weight-bold">
-                                Startad av
-                            </td>
-                            <td class="font-weight-bold">
-                                Skapad
-                            </td>
-                            <td class="font-weight-bold">
-                                Senaste inlägg
-                            </td>
-                        </tr>
-                    </thead>
-                    @foreach (var thread in Model.ThreadList.Where(s => s.SubjectId == subject.Id).OrderByDescending(s => s.CreationDate).Take(5))
+            <table class="table table-bordered ml-auto mr-auto shadow p-3 rounded" style="width:80%;">
+                <thead>
+                    <tr>
+                        <th class="font-weight-bold">
+                            Rubrik
+                        </th>
+                        <th class="font-weight-bold">
+                            Diskussioner
+                        </th>
+                        <th class="font-weight-bold">
+                            Inlägg
+                        </th>
+                        <th class="font-weight-bold">
+                            Senaste tråd
+                        </th>
+                    </tr>
+                </thead>
+                @*@foreach (var thread in Model.ThreadList.Where(s => s.SubjectId == subject.Id).OrderByDescending(s => s.CreationDate).Take(5))*@
+                <tbody>
+                    @foreach (var subject in Model.SubjectList)
                     {
-                        <tr class="table-success p-2">
+                        <tr>
                             <td>
-                                <a class="text-dark" asp-page="/Posts" asp-route-ThreadId="@thread.Id">
-                                    @thread.TreadTitle
+                                <a class="text-primary" asp-page="/ThreadIndex" asp-route-SubjectId="@subject.Id">
+                                    @subject.Name
                                 </a>
                             </td>
                             <td>
-                                @if (@thread.AuthorId == "")
+                                @Model.ThreadList.Where(t => t.SubjectId == subject.Id).Count()
+                            </td>
+                            <td>
+                                @await _ds.GetPostsCountInSubject(subject.Id)
+                            </td>
+                            <td>
+                                @if (_ds.GetLastestThreadInSubject(subject.Id).Result == null)
                                 {
-                                    <p>Gäst</p>
+
                                 }
                                 else
                                 {
-                                    if ((UserManager.FindByIdAsync(@thread.AuthorId).Result) == null)
+                                <a class="text-primary" asp-page="/Posts" asp-route-ThreadId="@_ds.GetLastestThreadInSubject(subject.Id).Result.Id">
+                                "@_ds.GetLastestThreadInSubject(subject.Id).Result.TreadTitle"
+                                </a>
+                                    <span>av </span>
+                                    if (_ds.GetLastestThreadInSubject(subject.Id).Result.AuthorId == "")
                                     {
-                                        <p>Borttagen</p>
+                                        <span>Gäst</span>
+                                    }
+                                    else if ((UserManager.FindByIdAsync(_ds.GetLastestThreadInSubject(subject.Id).Result.AuthorId).Result) == null)
+                                    {
+                                        <span>Borttagen</span>
                                     }
                                     else
                                     {
-                                        @UserManager.FindByIdAsync(@thread.AuthorId).Result.NickName
+                                        @UserManager.FindByIdAsync(_ds.GetLastestThreadInSubject(subject.Id).Result.AuthorId).Result.NickName
                                     }
+                                    <br />
+                                    <span>
+                                        @_ds.GetLastestThreadInSubject(subject.Id).Result.CreationDate.ToShortDateString()
+                                         @_ds.GetLastestThreadInSubject(subject.Id).Result.CreationDate.ToShortTimeString()
+                                    </span>
                                 }
-                            </td>
-                            <td>
-                                @thread.CreationDate.ToShortDateString() @thread.CreationDate.ToShortTimeString()
-                            </td>
-                            <td>
-                                @thread.LatestPost.ToShortDateString() @thread.LatestPost.ToShortTimeString()
                             </td>
                         </tr>
                     }
-                </table>
-                <br />
-                <br />
-            }
+                </tbody>
+            </table>
+            <br />
+            <br />
+
         }
     </div>
 </div>

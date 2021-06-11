@@ -5,6 +5,7 @@
 
 @inject SignInManager<ForumUser> SignInManager
 @inject UserManager<ForumUser> UserManager
+@inject Snackis_Forum_.Services.IForumDataService _ds
 @{
     ViewData["Title"] = "Trådindex";
 }
@@ -12,80 +13,87 @@
 
 <div>
     <div>
-            @if (SignInManager.IsSignedIn(User))
+        @*@if (SignInManager.IsSignedIn(User))
             {
-                <a class="btn btn-success float-right mb-2" asp-page="NewThread" asp-route-SubjectId="@Model.SubjectId">Skapa ny tråd</a>
+                <a class="btn btn-primary float-right mb-2" asp-page="NewThread" asp-route-SubjectId="@Model.SubjectId">Skapa ny tråd</a>
             }
-            
+            <br/>*@
+
 
         @if (Model.ThreadList != null)
         {
-            
-            <table class="table table-success m-0 text-center">
+            <table class="table table-primary m-0 ml-auto mr-auto text-center mt-5 text-white" style="width:80%;">
                 <thead>
-                    <tr class="bg-success text-center ">
+                    <tr>
                         <th>
-                            @foreach (var subject in Model.SubjectList.Where(t => t.Id == Model.SubjectId))
-                            {
-                                <h1 class="text-dark">@subject.Name</h1>
-                            }
+                            <h1 class="text-dark">
+                                @foreach (var subject in Model.SubjectList.Where(t => t.Id == Model.SubjectId))
+                                {
+                                    @subject.Name
+                                }
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <span><a class="btn btn-primary bg-white float-right mb-2" asp-page="NewThread" asp-route-SubjectId="@Model.SubjectId">Skapa ny tråd</a></span>
+                                }
+                            </h1>
                         </th>
                     </tr>
                 </thead>
             </table>
 
-
-    <table class="table table-success">
-        <thead>
-            <tr class="table-success">
-                <td class="font-weight-bold">
-                    Rubrik
-                </td>
-                <td class="font-weight-bold">
-                    Startad av
-                </td>
-                <td class="font-weight-bold">
-                    Skapad
-                </td>
-                <td class="font-weight-bold">
-                    Senaste inlägg
-                </td>
-            </tr>
-        </thead>
-        @foreach (var thread in Model.ThreadList.Where(s => s.SubjectId == Model.SubjectId).OrderByDescending(s => s.LatestPost))
-        {
-            <tr class="table-success p-2">
-                <td>
-                    <a class="text-dark" asp-page="/Posts" asp-route-ThreadId="@thread.Id">
-                        @thread.TreadTitle
-                    </a>
-                </td>
-                <td>
-                    @if (@thread.AuthorId == "")
-                    {
-                        <p>Gäst</p>
-                    }
-                    else
-                    {
-                        if ((UserManager.FindByIdAsync(@thread.AuthorId).Result) == null)
-                        {
-                            <p>Borttagen</p>
-                        }
-                        else
-                        {
-                            @UserManager.FindByIdAsync(@thread.AuthorId).Result.NickName
-                        }
-                    }
-                </td>
-                <td>
-                    @thread.CreationDate.ToShortDateString() @thread.CreationDate.ToShortTimeString()
-                </td>
-                <td>
-                    @thread.LatestPost.ToShortDateString() @thread.LatestPost.ToShortTimeString()
-                </td>
-            </tr>
-        }
-    </table>
+            <table class="table table-bordered ml-auto mr-auto shadow p-3 rounded" style="width:80%;">
+                <thead>
+                    <tr>
+                        <td class="font-weight-bold">
+                            Rubrik
+                        </td>
+                        <td class="font-weight-bold">
+                            Startad av
+                        </td>
+                        <td class="font-weight-bold">
+                            Skapad
+                        </td>
+                        <td class="font-weight-bold">
+                            Antal inlägg
+                        </td>
+                    </tr>
+                </thead>
+                @foreach (var thread in Model.ThreadList.Where(s => s.SubjectId == Model.SubjectId).OrderByDescending(s => s.LatestPost))
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a class="text-primary" asp-page="/Posts" asp-route-ThreadId="@thread.Id">
+                                    @thread.TreadTitle
+                                </a>
+                            </td>
+                            <td>
+                                @if (@thread.AuthorId == "")
+                                {
+                                    <p>Gäst</p>
+                                }
+                                else
+                                {
+                                    if ((UserManager.FindByIdAsync(@thread.AuthorId).Result) == null)
+                                    {
+                                        <p>Borttagen</p>
+                                    }
+                                    else
+                                    {
+                                        @UserManager.FindByIdAsync(@thread.AuthorId).Result.NickName
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @thread.CreationDate.ToShortDateString() @thread.CreationDate.ToShortTimeString()
+                            </td>
+                            <td>
+                               @_ds.GetForumPosts(@thread.Id).Result.Count()                         
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            </table>
             <br />
             <br />
         }

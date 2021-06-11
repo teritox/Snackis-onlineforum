@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Snackis_Forum_.Data;
 using Snackis_Forum_.Models;
 using Snackis_Forum_.Services;
@@ -76,6 +77,8 @@ namespace Snackis_Forum_.Pages
                     ThreadId = (int)ThreadId,
                     AnswerToId = AnswerTo
                 };
+
+                _ctx.SubjectThreads.Where(t => t.Id == ThreadId).FirstOrDefault().LatestPost = post.PostDate;
 
                 _ctx.Posts.Add(post);
                 await _ctx.SaveChangesAsync();

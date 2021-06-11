@@ -17,6 +17,7 @@ namespace Snackis_Forum_.Pages
         public SiteTitle SiteTitle { get; set; }
         public IEnumerable<Subject> SubjectList { get; set; }
         public IEnumerable<SubjectThread> ThreadList { get; set; }
+        public IEnumerable<Post> PostsList { get; set; }
 
         public IndexModel(IForumDataService ds)
         {
@@ -31,6 +32,8 @@ namespace Snackis_Forum_.Pages
             SubjectList = await _ds.GetSubjects();
 
             ThreadList = await _ds.GetForumThreads();
+
+            PostsList = await _ds.GetAllPosts();
 
             return Page();
         }

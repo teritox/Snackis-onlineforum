@@ -15,6 +15,8 @@ namespace Snackis_Forum_.Services
         Task<IEnumerable<SubjectThread>> GetForumThreads();
         Task<IEnumerable<Post>> GetForumPosts(int threadId);
         Task<IEnumerable<Post>> GetReportedPosts();
-
+        Task<IEnumerable<Post>> GetAllPosts();
+        Task<int> GetPostsCountInSubject(int subjectId);
+        Task<SubjectThread> GetLastestThreadInSubject(int subjectId);
     }
 }

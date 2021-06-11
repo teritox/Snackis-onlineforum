@@ -12,12 +12,12 @@
 <h1>Privata meddelanden</h1>
 
 
-<a class="btn btn-success mb-2" asp-page="/NewMessage">Nytt meddlande</a>
+<a class="btn btn-primary mb-2" asp-page="/NewMessage">Nytt meddlande</a>
 
 <div>
-    <table class="table table-sm">
+    <table class="table table-sm shadow p-3 rounded">
         <thead>
-            <tr class="bg-success">
+            <tr class="table-primary">
                 <th scope="col">Rubrik</th>
                 <th scope="col">Från</th>
                 <th scope="col">Mottaget</th>
@@ -28,7 +28,7 @@
         {
             @foreach (var message in Model.MessageList)
             {
-                <tr class="table-success table-sm">
+                <tr class="table table-sm">
                     <td>
                         @if (message.Read == false)
                         {
