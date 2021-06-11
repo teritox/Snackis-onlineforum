@@ -104,7 +104,11 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
                 }
 
                 using var image = Image.Load(UploadedFile.OpenReadStream());
-                image.Mutate(x => x.Resize(180, 0));
+                image.Mutate(x => x.Resize(new ResizeOptions
+                {
+                    Mode = ResizeMode.Crop,
+                    Size = new Size(180, 180)
+                }));
                 image.Save("./wwwroot/img/" + UploadedFile.FileName);
 
                 getUser.ProfilePicture = UploadedFile.FileName;
