@@ -92,10 +92,13 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
 
             if (UploadedFile != null)
             {
+                //If the img folder in wwwroot doesn't exists it will be created.
                 if (!Directory.Exists("./wwwroot/img")) Directory.CreateDirectory("./wwwroot/img");
 
+                //Delete the users old profile picture to keep old pictures from accumulating
                 var getUser = await _userManager.FindByIdAsync(user.Id);
                 var userPicture = getUser.ProfilePicture;
+
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "./wwwroot/img/" + userPicture);
 
                 if (System.IO.File.Exists(path))
@@ -103,15 +106,21 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account.Manage
                     System.IO.File.Delete(path);
                 }
 
+                //Image is converted from IFormFile to Image so that it can be edited to fit the profile picture format 
                 using var image = Image.Load(UploadedFile.OpenReadStream());
                 image.Mutate(x => x.Resize(new ResizeOptions
                 {
                     Mode = ResizeMode.Crop,
                     Size = new Size(180, 180)
                 }));
-                image.Save("./wwwroot/img/" + UploadedFile.FileName);
 
-                getUser.ProfilePicture = UploadedFile.FileName;
+                //The picture gets a random number added to the end of it to avoid pictures from different users having the same name.
+                var rnd = new Random();
+                var randomNumber = rnd.Next(0, 99999);
+
+                image.Save("./wwwroot/img/" + randomNumber + UploadedFile.FileName);
+
+                getUser.ProfilePicture = randomNumber + UploadedFile.FileName;
                 await _userManager.UpdateAsync(getUser);
             }
 

@@ -74,11 +74,13 @@
                             <div class="ml-1 mb-1 mr-1">
                                 <button class="btn btn-sm btn-primary " onclick="ShowForm(@post.Id)">Svara</button>
 
+                                @*Form for reporting a post*@
                                 <form method="post" class="float-right">
                                     <input type="hidden" name="reported" value="@post.Id" />
                                     <input type="submit" class="btn btn-sm btn-danger" value="Anmäl inlägg" style="font-weight:normal" />
                                 </form>
 
+                                @*Form for answering a post which stays hidden until user hits the button "Svara" and the form will pop out underneith that post.*@
                                 <div class="col-9 mt-2 mb-1" style="display:none;" id="@post.Id">
                                     <form method="post">
                                         <textarea rows="4" cols="75" name="posttext"></textarea>

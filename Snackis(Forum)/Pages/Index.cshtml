@@ -22,6 +22,7 @@
                 </p>
             </div>
 
+            //A new table will be created for every MainTitle to keep their subject apart.
 
             @foreach (var title in Model.SiteTitle)
             {
@@ -55,7 +56,6 @@
                             </th>
                         </tr>
                     </thead>
-                    @*@foreach (var thread in Model.ThreadList.Where(s => s.SubjectId == subject.Id).OrderByDescending(s => s.CreationDate).Take(5))*@
                     <tbody>
                         @foreach (var subject in Model.SubjectList.Where(s => s.SitetitleId == title.Id))
                         {
@@ -66,12 +66,16 @@
                                     </a>
                                 </td>
                                 <td>
+                                    @*Amount of threads in subject*@
                                     @Model.ThreadList.Where(t => t.SubjectId == subject.Id).Count()
                                 </td>
                                 <td>
+                                    @*Total amount of posts in subject*@
                                     @await _ds.GetPostsCountInSubject(subject.Id)
                                 </td>
                                 <td>
+                                    @*Gets the authors nickname for the lastest updated thread. If the author Id is set to "" then "Gäst" will be typed out.
+                                    If the author has an Id but can't be found it will type out "Borttagen" instead.*@
                                     @if (_ds.GetLastestThreadInSubject(subject.Id).Result == null)
                                     {
 

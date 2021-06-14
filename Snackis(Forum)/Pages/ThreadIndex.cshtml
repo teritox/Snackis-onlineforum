@@ -13,13 +13,6 @@
 
 <div>
     <div>
-        @*@if (SignInManager.IsSignedIn(User))
-            {
-                <a class="btn btn-primary float-right mb-2" asp-page="NewThread" asp-route-SubjectId="@Model.SubjectId">Skapa ny tråd</a>
-            }
-            <br/>*@
-
-
         @if (Model.ThreadList != null)
         {
             <table class="table table-primary m-0 ml-auto mr-auto text-center mt-5 text-white" style="width:80%;">

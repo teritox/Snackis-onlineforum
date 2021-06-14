@@ -60,8 +60,9 @@ namespace Snackis_Forum_.Pages
                 _ctx.SubjectThreads.Add(thread);
                 await _ctx.SaveChangesAsync();
 
-                var newlyAddedSubjectThread = await _ctx.SubjectThreads
-                    .Where(t => t.TreadTitle == thread.TreadTitle && t.AuthorId == thread.AuthorId && t.CreationDate == thread.CreationDate).FirstOrDefaultAsync();
+
+                //var newlyAddedSubjectThread = await _ctx.SubjectThreads
+                //    .Where(t => t.TreadTitle == thread.TreadTitle && t.AuthorId == thread.AuthorId && t.CreationDate == thread.CreationDate).FirstOrDefaultAsync();
 
                 PostText = PostText.Replace("\r\n", "<br />");
                 PostText = await _fulaord.GetFilteredItem(PostText);
@@ -72,7 +73,7 @@ namespace Snackis_Forum_.Pages
                     Author = userId,
                     PostDate = DateTime.Now,
                     Reported = false,
-                    ThreadId = newlyAddedSubjectThread.Id,
+                    ThreadId = thread.Id,
                     AnswerToId = 0
                 };
 

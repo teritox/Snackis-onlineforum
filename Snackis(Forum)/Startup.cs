@@ -38,6 +38,7 @@ namespace Snackis_Forum_
                 options.Conventions.AuthorizeFolder("/SiteAdmin");
             });
 
+            //For cookieconsent
             services.Configure<CookiePolicyOptions>(option =>
             {
                 option.CheckConsentNeeded = conesent => true;
@@ -53,6 +54,7 @@ namespace Snackis_Forum_
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //Cultureinfo set to swedish so DateTime gets date and time in YYYY/MM/DD with 24 hour HH:MM.
             var cultureInfo = new CultureInfo("sv");
 
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;

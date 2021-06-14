@@ -10,6 +10,9 @@ using Snackis_Forum_.Models;
 
 namespace Snackis_Forum_.Pages.SiteAdmin
 {
+
+    //This page is the index for MainTitle and Subjects. When a new MainTitle is created a new table for adding subjects to that maintitle will be added.
+
     public class IndexModel : PageModel
     {
         private readonly Snackis_Forum_.Data.ForumContext _context;

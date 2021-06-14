@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Snackis_Forum_.Controller
 {
+    //If called with an id this API will return the post with that id.
+
     [Route("api/[controller]")]
     [ApiController]
     public class DiscussionController : ControllerBase
