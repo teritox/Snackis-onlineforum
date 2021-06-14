@@ -77,10 +77,15 @@ namespace Snackis_Forum_.Pages
                     var receiver = _userManager.Users.Where(u => u.NickName.ToLower() == Receiver.ToLower()).FirstOrDefault();
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+                    TextMessage = TextMessage.Replace("\r\n", "<br />");
+                    TextMessage = await _fulaord.GetFilteredItem(TextMessage);
+                   
+                    Title = await _fulaord.GetFilteredItem(Title);
+
                     PrivateMessage message = new PrivateMessage
                     {
-                        MessageTitle = await _fulaord.GetFilteredItem(Title),
-                        Message = await _fulaord.GetFilteredItem(TextMessage),
+                        MessageTitle = Title,
+                        Message = TextMessage,
                         MessageSent = DateTime.Now,
                         SenderId = userId,
                         ReceiverId = receiver.Id

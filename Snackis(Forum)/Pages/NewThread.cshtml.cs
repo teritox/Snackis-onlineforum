@@ -46,9 +46,11 @@ namespace Snackis_Forum_.Pages
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+                Title = await _fulaord.GetFilteredItem(Title);
+
                 SubjectThread thread = new SubjectThread
                 {
-                    TreadTitle = await _fulaord.GetFilteredItem(Title),
+                    TreadTitle = Title,
                     CreationDate = DateTime.Now,
                     LatestPost = DateTime.Now,
                     AuthorId = userId,
@@ -61,9 +63,12 @@ namespace Snackis_Forum_.Pages
                 var newlyAddedSubjectThread = await _ctx.SubjectThreads
                     .Where(t => t.TreadTitle == thread.TreadTitle && t.AuthorId == thread.AuthorId && t.CreationDate == thread.CreationDate).FirstOrDefaultAsync();
 
+                PostText = PostText.Replace("\r\n", "<br />");
+                PostText = await _fulaord.GetFilteredItem(PostText);
+
                 Post post = new Post
                 {
-                    Text = await _fulaord.GetFilteredItem(PostText),
+                    Text = PostText,
                     Author = userId,
                     PostDate = DateTime.Now,
                     Reported = false,

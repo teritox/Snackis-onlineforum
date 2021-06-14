@@ -61,11 +61,12 @@ namespace Snackis_Forum_.Pages
 
                 var userId = "";
 
-                if(User.FindFirstValue(ClaimTypes.NameIdentifier) != null)
+                if (User.FindFirstValue(ClaimTypes.NameIdentifier) != null)
                 {
                     userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 }
 
+                PostText = PostText.Replace("\r\n", "<br />");
                 PostText = await _fulaord.GetFilteredItem(PostText);
 
                 Post post = new Post
@@ -78,14 +79,14 @@ namespace Snackis_Forum_.Pages
                     AnswerToId = AnswerTo
                 };
 
-                _ctx.SubjectThreads.Where(t => t.Id == ThreadId).FirstOrDefault().LatestPost = post.PostDate;
+                _ctx.SubjectThreads.Where(t => t.Id == post.ThreadId).FirstOrDefault().LatestPost = post.PostDate;
 
                 _ctx.Posts.Add(post);
                 await _ctx.SaveChangesAsync();
 
             }
 
-                
+
             if (Reported != 0)
             {
                 var post = await _ctx.Posts.FindAsync(Reported);
