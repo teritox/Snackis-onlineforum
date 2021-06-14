@@ -51,6 +51,8 @@ namespace Snackis_Forum_.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
+            //If the user got sent here from MessageOpen page by hitting "svara" it will send a messageId with it. This way sender and title will be filled 
+            //in for the user.
             if (MessageID != 0)
             {
                 var message = await _ctx.PrivateMessages.FindAsync(MessageID);
@@ -67,17 +69,22 @@ namespace Snackis_Forum_.Pages
 
             if (TextMessage != null)
             {
-                if (Receiver != null)
+                var receiver = _userManager.Users.Where(u => u.NickName.ToLower() == Receiver.ToLower()).FirstOrDefault();
+
+                if (receiver != null)
                 {
                     if (Title == "" || String.IsNullOrWhiteSpace(Title))
                     {
                         Title = "(Inget ämne)";
                     }
 
-                    var receiver = _userManager.Users.Where(u => u.NickName.ToLower() == Receiver.ToLower()).FirstOrDefault();
+                    //Getting Id for reciever by using its nickname
+                    //var receiver = _userManager.Users.Where(u => u.NickName.ToLower() == Receiver.ToLower()).FirstOrDefault();
+                    //Getting senders Id
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                    TextMessage = TextMessage.Replace("\r\n", "<br />");
+                    //Because of an issue with the API not accepting \r\n for line break without crashing its switched out to html line break <br /> instead.
+                    TextMessage = TextMessage.Replace("\r\n", "<br>");
                     TextMessage = await _fulaord.GetFilteredItem(TextMessage);
                    
                     Title = await _fulaord.GetFilteredItem(Title);

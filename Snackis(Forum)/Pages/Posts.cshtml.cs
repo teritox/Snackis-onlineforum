@@ -66,7 +66,7 @@ namespace Snackis_Forum_.Pages
                     userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 }
 
-                PostText = PostText.Replace("\r\n", "<br />");
+                PostText = PostText.Replace("\r\n", "<br>");
                 PostText = await _fulaord.GetFilteredItem(PostText);
 
                 Post post = new Post
