@@ -3,15 +3,6 @@
 @{
 }
 
-@*<h1>
-    Adminsidan - Du är
-    @foreach (var role in Model.Roles)
-    {
-        <span>@(await Model._userManager.IsInRoleAsync(Model.CurrentUser, role.Name) ? role.Name + ", " : "")</span>
-    }
-
-
-</h1>*@
 
 <div>
         Befintliga roller: <br />
@@ -41,7 +32,7 @@
         {
     <tr>
         <td>@user.NickName</td>
-        <td>@user.UserName</td>
+        <td>@user.Email</td>
 
         @foreach (var role in Model.Roles)
         {

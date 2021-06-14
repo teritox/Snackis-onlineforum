@@ -19,7 +19,7 @@ namespace Snackis_Forum_.Pages.SiteAdmin
         public List<IdentityRole> Roles { get; set; }
         public List<string> UserRoles { get; set; }
 
-        public IQueryable<ForumUser> Users { get; set; }
+        public IEnumerable<ForumUser> Users { get; set; }
         public ForumUser CurrentUser { get; set; }
 
 
@@ -50,8 +50,8 @@ namespace Snackis_Forum_.Pages.SiteAdmin
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Roles = _roleManager.Roles.ToList();
-            Users = _userManager.Users;
+            Roles = await _roleManager.Roles.ToListAsync();
+            Users = await _userManager.Users.ToListAsync();
 
             
             if (AddUserId != null)
