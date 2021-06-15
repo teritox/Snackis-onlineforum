@@ -33,20 +33,18 @@ namespace Snackis_Forum_
             services.AddScoped<IForumDataService, ForumDataService>();
             services.AddScoped<IFulaOrdGateway, FulaOrdGateway>();
 
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeFolder("/SiteAdmin", "RequireAdministratorRole");
+                options.Conventions.AuthorizePage("/MessageOpen");
+                options.Conventions.AuthorizePage("/NewMessage");
+                options.Conventions.AuthorizePage("/PrivateMessages");
+            });
 
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("RequireAdministratorRole",
                      policy => policy.RequireRole("Administrator"));
-            });
-
-
-            services.AddRazorPages(options =>
-            {
-                options.Conventions.AuthorizeAreaFolder("/SiteAdmin", "/", "RequireAdministratorRole");
-                options.Conventions.AuthorizePage("/MessageOpen");
-                options.Conventions.AuthorizePage("/NewMessage");
-                options.Conventions.AuthorizePage("/PrivateMessages");
             });
 
             //For cookieconsent

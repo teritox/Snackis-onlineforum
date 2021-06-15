@@ -84,7 +84,7 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account
 
             if (_userManager.Users.Count() == 0)
             {
-                bool exist = await _roleManager.RoleExistsAsync("Admin");
+                bool exist = await _roleManager.RoleExistsAsync("Administrator");
 
                 if (!exist)
                 {
@@ -107,7 +107,7 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account
 
                 await _userManager.CreateAsync(admin, password);
 
-                await _userManager.AddToRoleAsync(admin, "Admin");
+                await _userManager.AddToRoleAsync(admin, "Administrator");
             }
 
             if (ModelState.IsValid)
