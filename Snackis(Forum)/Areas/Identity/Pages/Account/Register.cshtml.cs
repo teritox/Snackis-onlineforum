@@ -90,7 +90,7 @@ namespace Snackis_Forum_.Areas.Identity.Pages.Account
                 {
                     var role = new IdentityRole
                     {
-                        Name = "Admin"
+                        Name = "Administrator"
                     };
 
                     await _roleManager.CreateAsync(role);
