@@ -28,7 +28,7 @@
         </tr>
 
 
-        @foreach (var user in Model.Users)
+        @foreach (var user in Model.Users.OrderBy(u => u.NickName))
         {
     <tr>
         <td>@user.NickName</td>

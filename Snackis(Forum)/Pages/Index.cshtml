@@ -24,7 +24,7 @@
 
             //A new table will be created for every MainTitle to keep their subject apart.
 
-            @foreach (var title in Model.SiteTitle)
+            @foreach (var title in Model.SiteTitle.OrderBy(s => s.MainTitle))
             {
                 <table class="table table-primary m-0 ml-auto mr-auto borderless text-dark" style="width:80%;">
                     <thead>
@@ -57,7 +57,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var subject in Model.SubjectList.Where(s => s.SitetitleId == title.Id))
+                        @foreach (var subject in Model.SubjectList.Where(s => s.SitetitleId == title.Id).OrderBy(s => s.Name))
                         {
                             <tr>
                                 <td>

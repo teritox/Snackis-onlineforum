@@ -19,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.SiteTitle)
+        @foreach (var item in Model.SiteTitle.OrderBy(s => s.MainTitle))
         {
             <tr>
                 <td>
@@ -35,7 +35,7 @@
     </tbody>
 </table>
 
-@foreach (var title in Model.SiteTitle)
+@foreach (var title in Model.SiteTitle.OrderBy(s => s.MainTitle))
 {
     <h2>Kategorier för @title.MainTitle</h2>
     <p>
@@ -51,7 +51,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var subject in Model.Subjects.Where(s => s.SitetitleId == title.Id))
+            @foreach (var subject in Model.Subjects.Where(s => s.SitetitleId == title.Id).OrderBy(s => s.Name))
             {
                 <tr>
                     <td>
