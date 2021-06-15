@@ -15,7 +15,14 @@
     <div>
         @if (Model.ThreadList != null)
         {
-            <table class="table table-primary m-0 ml-auto mr-auto text-center mt-5 text-white" style="width:80%;">
+            <div class="text-center mt-5">
+                @if (!SignInManager.IsSignedIn(User))
+                {
+                    <h3><a class="text-primary" asp-area="Identity" asp-page="/Account/Login">Logga in</a> för att skapa en ny tråd</h3>
+                }
+            </div>
+
+            <table class="table table-primary m-0 ml-auto mr-auto text-center mt-4 text-white" style="width:80%;">
                 <thead>
                     <tr>
                         <th>
@@ -81,7 +88,7 @@
                                 @thread.CreationDate.ToShortDateString() @thread.CreationDate.ToShortTimeString()
                             </td>
                             <td>
-                               @_ds.GetForumPosts(@thread.Id).Result.Count()                         
+                                @_ds.GetForumPosts(@thread.Id).Result.Count()
                             </td>
                         </tr>
                     </tbody>

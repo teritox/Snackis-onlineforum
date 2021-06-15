@@ -67,7 +67,7 @@ namespace Snackis_Forum_.Pages
                 }
 
                 PostText = PostText.Replace("\r\n", "<br>");
-                PostText = await _fulaord.GetFilteredItem(PostText);
+                PostText = await _fulaord.FilterBadWords(PostText);
 
                 Post post = new Post
                 {

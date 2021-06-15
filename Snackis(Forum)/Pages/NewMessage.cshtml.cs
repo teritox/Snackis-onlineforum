@@ -78,16 +78,13 @@ namespace Snackis_Forum_.Pages
                         Title = "(Inget ämne)";
                     }
 
-                    //Getting Id for reciever by using its nickname
-                    //var receiver = _userManager.Users.Where(u => u.NickName.ToLower() == Receiver.ToLower()).FirstOrDefault();
                     //Getting senders Id
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                    //Because of an issue with the API not accepting \r\n for line break without crashing its switched out to html line break <br /> instead.
                     TextMessage = TextMessage.Replace("\r\n", "<br>");
-                    TextMessage = await _fulaord.GetFilteredItem(TextMessage);
-                   
-                    Title = await _fulaord.GetFilteredItem(Title);
+                    TextMessage = await _fulaord.FilterBadWords(TextMessage);
+
+                    Title = await _fulaord.FilterBadWords(Title);
 
                     PrivateMessage message = new PrivateMessage
                     {

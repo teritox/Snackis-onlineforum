@@ -46,7 +46,7 @@ namespace Snackis_Forum_.Pages
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                Title = await _fulaord.GetFilteredItem(Title);
+                Title = await _fulaord.FilterBadWords(Title);
 
                 SubjectThread thread = new SubjectThread
                 {
@@ -60,12 +60,8 @@ namespace Snackis_Forum_.Pages
                 _ctx.SubjectThreads.Add(thread);
                 await _ctx.SaveChangesAsync();
 
-
-                //var newlyAddedSubjectThread = await _ctx.SubjectThreads
-                //    .Where(t => t.TreadTitle == thread.TreadTitle && t.AuthorId == thread.AuthorId && t.CreationDate == thread.CreationDate).FirstOrDefaultAsync();
-
-                PostText = PostText.Replace("\r\n", "<br />");
-                PostText = await _fulaord.GetFilteredItem(PostText);
+                PostText = PostText.Replace("\r\n", "<br>");
+                PostText = await _fulaord.FilterBadWords(PostText);
 
                 Post post = new Post
                 {

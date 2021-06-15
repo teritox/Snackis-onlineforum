@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Snackis_Forum_.Gateway
@@ -38,20 +39,27 @@ namespace Snackis_Forum_.Gateway
             return returnValue;
         }
 
-        public async Task<string> GetFilteredItem(string message)
-        {
-            var response = await _httpClient.GetStringAsync(_config["ConnectionStrings:FulaOrdAPI"] + "/" + message);
-
-            return response;
-
-        }
-
         public async Task<FulaOrd> DeleteBadWord(int deleteId)
         {
             var response = await _httpClient.DeleteAsync(_config["ConnectionStrings:FulaOrdAPI"] + "/" + deleteId);
             FulaOrd returnValue = await response.Content.ReadFromJsonAsync<FulaOrd>();
 
             return returnValue;
+        }
+
+        public async Task<string> FilterBadWords(string text)
+        {
+            List<FulaOrd> fulaOrdList = await GetBadWords();
+
+            string replacement = "*********";
+
+            foreach (var ord in fulaOrdList)
+            {
+                text = Regex.Replace(text, ord.Word, replacement, RegexOptions.IgnoreCase);
+            }
+
+            return text;
+
         }
 
     }

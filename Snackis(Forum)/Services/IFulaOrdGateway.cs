@@ -10,8 +10,9 @@ namespace Snackis_Forum_.Services
     {
         Task<List<FulaOrd>> GetBadWords();
         Task<FulaOrd> PostBadWord(FulaOrd fultOrd);
-        Task<string> GetFilteredItem(string message);
         Task<FulaOrd> DeleteBadWord(int deleteId);
+        Task<string> FilterBadWords(string message);
+ 
 
     }
 }
