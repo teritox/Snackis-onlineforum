@@ -13,22 +13,54 @@
     <h1>Anmälda inlägg</h1><br />
     @if (Model.PostList != null)
     {
-        @foreach (var post in Model.PostList)
+    @foreach (var post in Model.PostList)
         {
-            <div class="border border-dark text-left mb-3" style="width:50%">
-                Skapat av @(UserManager.FindByIdAsync(post.Author).Result.NickName)
-                Postat den: @post.PostDate
-                Svar på: @post.AnswerToId
+    <div class="text-left border border-dark mb-5 shadow" style="margin:auto; width:70%">
+        <div style="background-color: lightblue; height:30px">
 
-                <div class="text-center border-top">
-                    <br /> <br />
-                    <h3>@post.Text</h3>
+            <p>
+                &ensp;Postat den: @post.PostDate.ToShortDateString() @post.PostDate.ToShortTimeString()
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-2 mt-2 ml-2">
+                @if (post.Author == "")
+                {
+                    <img src="~/img/user_profile_picture.png" class="img-thumbnail img-fluid" alt="Profilbild">
+                }
+                else if (@UserManager.FindByIdAsync(post.Author).Result.ProfilePicture != null)
+                {
+                     <img src="~/img/@UserManager.FindByIdAsync(post.Author).Result.ProfilePicture" class="img-thumbnail img-fluid" alt="Profilbild" />
+                }
+                else
+                {
+                    <img src="~/img/user_profile_picture.png" class="img-thumbnail img-fluid" alt="Profilbild">
+                }
 
-                </div>
+                <p class="text-center">
+                    @if (post.Author == "")
+                    {
+                        <span>Gäst</span>
+                    }
+                    else if (UserManager.FindByIdAsync(post.Author).Result.NickName == null)
+                    {
+                        <span>Borttagen</span>
+                    }
+                    else
+                    {
+                        <span>@UserManager.FindByIdAsync(post.Author).Result.NickName</span>
+                    }
+                </p>
             </div>
+            <div class="col-9">
+                <p class="mt-2" style="overflow-wrap:break-word;">@Html.Raw(post.Text)</p>
+            </div>
+        </div>
 
-            <a class="btn btn-danger" href="?deletepostid=@post.Id">Radera inlägg</a>
-            <a class="btn btn-success" href="?restorepostid=@post.Id">Godkänn inlägg</a>
+    <a class="btn btn-danger" href="?deletepostid=@post.Id">Radera inlägg</a>
+    <a class="btn btn-success" href="?restorepostid=@post.Id">Godkänn inlägg</a>
+    </div>
+
         }
     }
 </div>

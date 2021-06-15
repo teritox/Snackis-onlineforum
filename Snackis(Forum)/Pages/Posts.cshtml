@@ -61,6 +61,10 @@
                                         {
                                             <span>Gäst</span>
                                         }
+                                        else if (UserManager.FindByIdAsync(post.Author).Result.NickName == null)
+                                        {
+                                            <span>Borttagen</span>
+                                        }
                                         else
                                         {
                                             <span>@UserManager.FindByIdAsync(post.Author).Result.NickName</span>
