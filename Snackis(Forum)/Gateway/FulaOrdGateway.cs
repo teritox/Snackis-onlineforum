@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -47,20 +48,29 @@ namespace Snackis_Forum_.Gateway
             return returnValue;
         }
 
-        public async Task<string> FilterBadWords(string text)
+        public async Task<string> FilterBadWords(string message)
         {
-            List<FulaOrd> fulaOrdList = await GetBadWords();
-
-            string replacement = "*********";
-
-            foreach (var ord in fulaOrdList)
+            FulaOrd filterPost = new FulaOrd
             {
-                text = Regex.Replace(text, ord.Word, replacement, RegexOptions.IgnoreCase);
-            }
+                Word = message
+            };
 
-            return text;
+            var response = await _httpClient.PutAsJsonAsync(_config["ConnectionStrings:FulaOrdAPI"], filterPost);
+            string apiResponse = await response.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<FulaOrd>(apiResponse).Word;
 
         }
 
+        //List<FulaOrd> fulaOrdList = await GetBadWords();
+
+        //string replacement = "*********";
+
+        //foreach (var ord in fulaOrdList)
+        //{
+        //    text = Regex.Replace(text, ord.Word, replacement, RegexOptions.IgnoreCase);
+        //}
+
+        //return text;
     }
 }
