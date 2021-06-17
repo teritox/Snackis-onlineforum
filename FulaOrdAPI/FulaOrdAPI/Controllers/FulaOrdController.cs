@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc.TagHelpers;
 using System.Text;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 
 namespace FulaOrdAPI.Models
 {
@@ -29,6 +31,22 @@ namespace FulaOrdAPI.Models
         public async Task<ActionResult<IEnumerable<FulaOrd>>> GetFulaOrd()
         {
             return await _context.FulaOrd.ToListAsync();
+        }
+
+        // GET: api/FulaOrd/message
+        [HttpPut]
+        public async Task<ActionResult<FulaOrd>> GetFulaOrd(FulaOrd message)
+        {
+            IEnumerable<FulaOrd> fulaOrdList = await _context.FulaOrd.ToListAsync();
+
+            string replacement = "******";
+
+            foreach (var ord in fulaOrdList)
+            {
+                message.Word = Regex.Replace(message.Word, ord.Word, replacement, RegexOptions.IgnoreCase);
+            }
+
+            return message;
         }
 
         //POST: api/FulaOrd
