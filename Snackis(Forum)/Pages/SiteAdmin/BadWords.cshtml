@@ -20,10 +20,12 @@
     <p>Här visas alla ord som finns i fula ord listan</p>
     <p>Tryck på det röda krysset till vänster om order för att ta bort det.</p>
 
-    @foreach (var item in Model.FulaOrdList.OrderBy(o => o.Word))
+    @if (Model.FulaOrdList != null)
     {
-        <p><a href="?deleteid=@item.Id" style="color: red">X</a> @item.Word</p>
+        @foreach (var item in Model.FulaOrdList.OrderBy(o => o.Word))
+        {
+            <p><a href="?deleteid=@item.Id" style="color: red">X</a> @item.Word</p>
+        }
     }
 
-
-</div>
+    </div>

@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Huvudtitel för forumen</h2>
+<h2>Huvudtitlar för forumet</h2>
 <p>
     <a asp-page="MainTitle/Create">Skapa ny</a>
 </p>
@@ -58,9 +58,9 @@
                         @Html.DisplayFor(modelItem => subject.Name)
                     </td>
                     <td>
-                        <a asp-page="Subjects/Edit" asp-route-id="@subject.Id">Edit</a> |
-                        <a asp-page="Subjects/Details" asp-route-id="@subject.Id">Details</a> |
-                        <a asp-page="Subjects/Delete" asp-route-id="@subject.Id">Delete</a>
+                        <a asp-page="Subjects/Edit" asp-route-id="@subject.Id">Redigera</a> |
+                        <a asp-page="Subjects/Details" asp-route-id="@subject.Id">Detaljer</a> |
+                        <a asp-page="Subjects/Delete" asp-route-id="@subject.Id">Radera</a>
                     </td>
                 </tr>
             }

@@ -28,7 +28,8 @@
                 {
                     <img src="~/img/user_profile_picture.png" class="img-thumbnail img-fluid" alt="Profilbild">
                 }
-                else if (@UserManager.FindByIdAsync(post.Author).Result.ProfilePicture != null)
+                else if (@UserManager.FindByIdAsync(post.Author).Result != null &&
+                    @UserManager.FindByIdAsync(post.Author).Result.ProfilePicture != null)
                 {
                      <img src="~/img/@UserManager.FindByIdAsync(post.Author).Result.ProfilePicture" class="img-thumbnail img-fluid" alt="Profilbild" />
                 }
@@ -42,7 +43,7 @@
                     {
                         <span>Gäst</span>
                     }
-                    else if (UserManager.FindByIdAsync(post.Author).Result.NickName == null)
+                    else if (UserManager.FindByIdAsync(post.Author).Result == null)
                     {
                         <span>Borttagen</span>
                     }

@@ -24,7 +24,12 @@ namespace Snackis_Forum_.Pages.SiteAdmin
 
         public async Task<IActionResult> OnGetAsync()
         {
-            FulaOrdList = await _fulaord.GetBadWords();
+            try
+            {
+                FulaOrdList = await _fulaord.GetBadWords();
+            }
+            catch
+            { }
 
             if (DeleteID != 0)
             {

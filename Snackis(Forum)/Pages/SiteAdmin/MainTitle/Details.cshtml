@@ -2,13 +2,13 @@
 @model Snackis_Forum_.Pages.SiteAdmin.DetailsMainTitleModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detaljer";
 }
 
-<h1>Details</h1>
+<h1>Detaljer</h1>
 
 <div>
-    <h4>SiteTitle</h4>
+    <h4>Huvudtitel</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -20,6 +20,6 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.SiteTitle.Id">Edit</a> |
-    <a asp-page="../Index">Back to List</a>
+    <a asp-page="./Edit" asp-route-id="@Model.SiteTitle.Id">Redigera</a> |
+    <a asp-page="../Index">Tillbaka</a>
 </div>
